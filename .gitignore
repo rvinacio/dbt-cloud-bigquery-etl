@@ -1,0 +1,12 @@
+target/
+dbt_packages/
+logs/
+rafael-data-6af28b2b114b.json
+/models/example
+# Ignorar arquivos de credenciais
+*.json
+
+# Ignorar diretórios de cache ou arquivos temporários
+__pycache__/
+*.log
+.env

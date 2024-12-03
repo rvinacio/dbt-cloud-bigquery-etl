@@ -1,22 +1,30 @@
 sources:
-  - name: dbt  # Nome que você usa para referenciar nas queries dbt
-    project: rafael-data  # Nome do projeto BigQuery
-    dataset: dbt_cloud  # Dataset que contém as tabelas dbt
+  - name: dbt # Nome que você usa para referenciar nas queries dbt
+    project: rafael-data # Nome do projeto BigQuery
+    dataset: dbt_cloud # Dataset que contém as tabelas dbt
     tables:
       - name: fato
-        identifier: fato_cartao_xp  # Tabela de fatos sobre cartão XP
+        identifier: fato_cartao_xp # Tabela de fatos sobre cartão XP
         description: "Tabela de fatos sobre as transações de cartão XP"
       - name: estab
-        identifier: estabelecimentos  # Tabela de estabelecimentos
+        identifier: estabelecimentos # Tabela de estabelecimentos
         description: "Tabela de estabelecimentos comerciais"
       - name: cat
-        identifier: categoria  # Tabela de categorias de estabelecimento
+        identifier: categoria # Tabela de categorias de estabelecimento
         description: "Tabela de categorias dos estabelecimentos"
+      - name: estab_aux
+        identifier: estabelecimento_auxiliar # Nome da tabela no BigQuery
+        description: "Tabela auxiliar de estabelecimentos comerciais"
+      - name: tempo
+        identifier: tb_tempo
 
-  - name: import  # Outra origem que você usa, para o dataset de importações
-    project: rafael-data  # Nome do projeto BigQuery
-    dataset: data_import  # Dataset de importação de faturas
+      - name: valor_alterado
+        identifier: alteracao_valor_pago
+
+  - name: import # Outra origem que você usa, para o dataset de importações
+    project: rafael-data # Nome do projeto BigQuery
+    dataset: data_import # Dataset de importação de faturas
     tables:
       - name: fatura
-        identifier: fatura_xp  # Tabela de faturas importadas
+        identifier: fatura_xp # Tabela de faturas importadas
         description: "Tabela de faturas de cartão de crédito XP importadas"

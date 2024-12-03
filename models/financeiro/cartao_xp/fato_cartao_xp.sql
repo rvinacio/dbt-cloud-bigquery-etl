@@ -34,7 +34,7 @@ WITH
         FROM {{ source("import", "fatura") }} f  -- Referência à tabela de faturas
         LEFT JOIN {{ source("dbt", "estab") }} e ON farm_fingerprint(UPPER(f.estabelecimento)) = e.cod_estabelecimento  -- Junção com a tabela de estabelecimentos
         LEFT JOIN {{ source("dbt", "cat") }} c ON e.id_categoria = c.id_categoria  -- Junção com a tabela de categorias
-        WHERE UPPER(f.estabelecimento) <> 'PAGAMENTOS VALIDOS NORMAIS'  -- Filtra estabelecimentos específicos
+        WHERE UPPER(f.estabelecimento) NOT IN ('PAGAMENTOS VALIDOS NORMAIS', 'PAGAMENTO DE FATURA')  -- Filtra estabelecimentos específicos
           AND f._fivetran_synced > (SELECT max_fivetran_synced FROM maxdatasynced)  -- Filtra por data de sincronização
     ),
 

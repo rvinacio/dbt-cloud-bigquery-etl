@@ -20,7 +20,7 @@ WITH
     -- Realiza o tratamento inicial dos dados da tabela "fatura"
     tratando_dados AS (
         SELECT 
-            CAST(SUBSTR(f._file, 11, 10) AS date) AS data_pagamento,  -- Extrai a data de pagamento do nome do arquivo
+            CAST(REGEXP_EXTRACT(_file, r'\d{4}-\d{2}-\d{2}') as date) AS data_pagamento,  -- Extrai a data de pagamento do nome do arquivo
             CAST(REGEXP_REPLACE(REGEXP_REPLACE(TRIM(REGEXP_REPLACE(f.valor, r'R\$', '')), r'\.', ''), r',', '.') AS float64) AS valor_pago,  -- Limpa e converte o valor pago
             CAST((CASE WHEN f.parcela = '-' THEN CAST(0 AS string) ELSE LTRIM(LEFT(f.parcela, 2)) END) AS int64) AS parcela_vigente,  -- Extrai a parcela vigente
             CAST((CASE WHEN f.parcela = '-' THEN CAST(0 AS string) ELSE RTRIM(RIGHT(f.parcela, 2)) END) AS int64) AS parcela_total,  -- Extrai a parcela total
